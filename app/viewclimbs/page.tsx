@@ -47,7 +47,7 @@ export default function ViewClimbsPage(){
                         </tbody>
                     </table>
                 </div>
-                <div className={'flex flex-col p-6 gap-y-2'}>
+                <div className={'flex flex-col p-6 gap-y-2 justify-end'}>
                     <button className={'h-8 rounded-full bg-blue-800 text-zinc-100 hover:bg-blue-900'}>Add</button>
                     <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
                         'hover:text-zinc-300'}>Edit
