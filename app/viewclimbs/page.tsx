@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function ViewClimbsPage(){
     return(
         <div className={'bg-white'}>
@@ -6,10 +8,12 @@ export default function ViewClimbsPage(){
                     ' border-zinc-500 text-black hover:text-zinc-100'}>Climbs</button>
                 <button className={'w-20 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full text-black btn-outline-4' +
                     ' border border-zinc-500 hover:text-zinc-100'}>Filter By</button>
-                <button className={'w-18 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
-                    ' hover:text-zinc-100 border border-zinc-500 ml-auto'}>
-                    Logout
-                </button>
+                <Link href={'/'} className={'ml-auto'}>
+                    <button className={'w-18 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
+                        ' hover:text-zinc-100 border border-zinc-500 ml-auto'}>
+                            Logout
+                    </button>
+                </Link>
             </header>
             <main className={'bg-white flex flex-col min-h-screen'}>
                 <div className={'flex flex-col'}>
@@ -48,7 +52,9 @@ export default function ViewClimbsPage(){
                     </table>
                 </div>
                 <div className={'flex flex-col p-6 gap-y-2 justify-end'}>
-                    <button className={'h-8 rounded-full bg-blue-800 text-zinc-100 hover:bg-blue-900'}>Add</button>
+                    <Link href={'/addclimb'} className={'flex flex-col'}>
+                        <button className={'h-8 rounded-full bg-blue-800 text-zinc-100 hover:bg-blue-900'}>Add</button>
+                    </Link>
                     <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
                         'hover:text-zinc-300'}>Edit
                     </button>

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Home() {
   return (
       //flex makes items flex elements
@@ -7,9 +9,11 @@ export default function Home() {
     <div className="bg-white font-sans">
       <main className="flex flex-col items-center min-h-screen">
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-center">
-          <h1 className="text-4xl font-bold justify-between py-20 text-black ">
-            The Climbing Log
-          </h1>
+            <Link href={'/'}>
+              <h1 className="text-4xl font-bold justify-between py-20 text-black ">
+                The Climbing Log
+              </h1>
+            </Link>
         </div>
         <div className="w-[40vw]">
             <h2 className="text-center text-xl font-semibold text-black py-10">
@@ -24,16 +28,20 @@ export default function Home() {
                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'} required/>
             </div>
             <div className={'py-4'}>
-                <button className={'w-full bg-zinc-800 hover:bg-black rounded-full text-white'}>Login</button>
+                <Link href={'/viewclimbs'}>
+                    <button className={'w-full bg-zinc-800 hover:bg-black rounded-full text-white'}>Login</button>
+                </Link>
             </div>
         </div>
         <div className={'w-[40vw] mt-auto pb-8'}>
             <h2 className={'text-center text-xl font-semibold text-black py-4'}>
                 No account? Click below!
             </h2>
-            <button className={'w-full bg-zinc-800 hover:bg-black rounded-full text-white'}>
-                Create new account
-            </button>
+            <Link href={'/registeraccount'}>
+                <button className={'w-full bg-zinc-800 hover:bg-black rounded-full text-white'}>
+                    Create new account
+                </button>
+            </Link>
         </div>
       </main>
     </div>
