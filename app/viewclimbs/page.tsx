@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import {Climb, climbs} from "../data/climbs";
 
 export default function ViewClimbsPage(){
     return(
@@ -30,24 +33,7 @@ export default function ViewClimbsPage(){
                             </tr>
                         </thead>
                         <tbody className={'text-center'}>
-                            <tr className={'border text-zinc-900 text-sm odd:bg-zinc-300 even:bg-zinc-100'}>
-                                <td>1</td>
-                                <td>7</td>
-                                <td>Orange</td>
-                                <td>8</td>
-                                <td>No</td>
-                                <td>Crimps</td>
-                                <td>9</td>
-                            </tr>
-                            <tr className={'border text-zinc-900 text-sm odd:bg-zinc-200 even:bg-zinc-100'}>
-                                <td>2</td>
-                                <td>6</td>
-                                <td>Green</td>
-                                <td>3</td>
-                                <td>Yes</td>
-                                <td>Slopers</td>
-                                <td>5</td>
-                            </tr>
+                            {climbs.map(showClimbs)}
                         </tbody>
                     </table>
                 </div>
@@ -63,4 +49,18 @@ export default function ViewClimbsPage(){
             </main>
         </div>
     )
+}
+
+function showClimbs(climb: Climb){
+    return (
+        <tr key={climb.id} className={'border text-zinc-900 text-sm odd:bg-zinc-300 even:bg-zinc-100'}>
+            <td>{climb.id}</td>
+            <td>{climb.grade}</td>
+            <td>{climb.color}</td>
+            <td>{climb.attempts}</td>
+            <td>{climb.sent ? "Yes" : "No"}</td>
+            <td>{climb.style}</td>
+            <td>{climb.intensity}</td>
+        </tr>
+    );
 }
