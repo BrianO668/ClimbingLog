@@ -14,9 +14,9 @@ export default function AddClimb(){
         const data = new FormData(form);
 
         const grade = Number(data.get("grade"));
-        const color = data.get("color");
+        const color = String(data.get("color"));
         const attempts = Number(data.get("attempts"));
-        const style = data.get("style");
+        const style = String(data.get("style"));
         const intensity = Number(data.get("intensity"));
         const sent = data.get("sent") === "on";
 

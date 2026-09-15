@@ -1,5 +1,13 @@
 class Climb {
-    constructor(grade, color, attempts, style, intensity, sent) {
+    id: number;
+    grade: number;
+    color: string;
+    attempts: number;
+    style: string;
+    intensity: number;
+    sent: boolean;
+
+    constructor(grade: number, color: string, attempts: number, style: string, intensity: number, sent: boolean) {
         this.id = nextID
         this.grade = grade;
         this.color = color;
