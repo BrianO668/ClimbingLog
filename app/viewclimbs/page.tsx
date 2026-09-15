@@ -67,7 +67,7 @@ function showClimbs(climb: Climb, selID: number | null, setSelID: (id: number) =
         <tr key={climb.id} onClick={() => setSelID(climb.id)//React needs keys for rendering lists/differentiating
             //Arrow function says (parameter or lack thereof) do this => setSelID(climb.ID)
             //onClick is React event handler
-            //Cannot pass setSelID directly into onClick or it will run each time a row is created
+            //Cannot pass setSelID directly into onClick, or it will run each time a row is created
         }
             className={selID === climb.id ? 'border-2 border-blue-950 text-zinc-900 text-sm bg-blue-400' :
             'border text-zinc-900 text-sm odd:bg-zinc-300 even:bg-zinc-100'}>

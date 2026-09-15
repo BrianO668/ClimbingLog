@@ -41,55 +41,55 @@ export default function AddClimb(){
             <main className={'bg-white flex flex-col min-h-screen'}>
                 <form onSubmit={saveClimb}>
                     <div className={'flex flex-col items-center'}>
-                        <h1 className={'text-black flex justify-center text-xl font-bold'}>Add New Climb</h1>
-                        <div className={'flex flex-row justify-center w-1/2'}>
+                        <h1 className={'text-black flex text-xl font-bold'}>Add New Climb</h1>
+                        <div className={'flex flex-row gap-5 justify-center w-1/2'}>
                             <h1 className={'text-black w-1/8'}>Grade</h1>
-                            <div className={'px-5 w-1/8'}>
+                            <div className={'px-5'}>
                                 <input id={'grade'} name={'grade'} type={'number'}
                                 placeholder={'int'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
-                        <div className={'flex flex-row justify-center w-1/2 py-1'}>
+                        <div className={'flex flex-row gap-5 justify-center w-1/2 py-1'}>
                             <h1 className={'text-black w-1/8'}>Color</h1>
-                            <div className={'px-5 w-1/8'}>
+                            <div className={'px-5'}>
                                 <input id={'color'} name={'color'}
                                        placeholder={'text'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
-                        <div className={'flex flex-row justify-center w-1/2 py-1'}>
+                        <div className={'flex flex-row gap-5 justify-center w-1/2 py-1'}>
                             <h1 className={'text-black w-1/8'}>Attempts</h1>
-                            <div className={'px-5 w-1/8'}>
+                            <div className={'px-5'}>
                                 <input id={'attempts'} name={'attempts'} type={'number'}
                                        placeholder={'int'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
-                        <div className={'flex flex-row justify-center w-1/2 py-1'}>
+                        <div className={'flex flex-row gap-5 justify-center w-1/2 py-1'}>
                             <h1 className={'text-black w-1/8'}>Style</h1>
-                            <div className={'px-5 w-1/8'}>
+                            <div className={'px-5'}>
                                 <input id={'style'} name={'style'}
                                        placeholder={'text'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
-                        <div className={'flex flex-row justify-center w-1/2 py-1'}>
+                        <div className={'flex flex-row gap-5 justify-center w-1/2 py-1'}>
                             <h1 className={'text-black w-1/8'}>Intensity</h1>
-                            <div className={'px-5 w-1/8'}>
+                            <div className={'px-5'}>
                                 <input id={'intensity'} name={'intensity'} type={'number'} min={0} max={10}
                                        placeholder={'int 0-10'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
-                        <div className={'flex flex-row justify-center w-1/2 py-1'}>
+                        <div className={'flex flex-row gap-5 justify-center w-1/2 py-1'}>
                             <h1 className={'text-black w-1/8'}>Sent</h1>
-                            <div className={'px-5 py-1 w-1/8 flex justify-start'}>
+                            <div className={'px-5 py-1 flex justify-start'}>
                                 <input id={'sent'} name={'sent'} type={'checkbox'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
-                        <div className={'flex py-4 justify-center items-center w-1/4'}>
+                        <div className={'flex py-4 w-1/4'}>
                             <button type={'submit'} className={'flex w-full text-center justify-center' +
                                 ' bg-zinc-800 hover:bg-black rounded-full text-white'}>Save
                             </button>
