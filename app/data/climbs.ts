@@ -22,7 +22,7 @@ class Climb {
 
 let nextID = 1;
 
-const climbs = [];
+const climbs: Climb[] = [];
  //Test data!
 climbs.push(new Climb(7, "Orange", 8, "Crimps", 9, false));
 climbs.push(new Climb(6, "Green", 3, "Slopers", 5, true));
