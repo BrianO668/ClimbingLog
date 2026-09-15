@@ -2,8 +2,14 @@
 
 import Link from 'next/link';
 import {Climb, climbs} from "../data/climbs";
+import {useState} from 'react';
 
 export default function ViewClimbsPage(){
+    const [selID, setSelID] = useState<number | null>(null); //Says useState type is number or null
+   //use state^ creates a function to change the first parameter//(null) sets starting value to null-> useState<type>(initialValue)
+    //[variableName, functionThatChangesVariableName]
+    //useState<this type is allowed when ^function is called>
+
     return(
         <div className={'bg-white'}>
             <header className={'flex h-14 items-center gap-4 border-b border-b-zinc-900 border-zinc-white px-4 sm:px-5'}>
@@ -33,7 +39,9 @@ export default function ViewClimbsPage(){
                             </tr>
                         </thead>
                         <tbody className={'text-center'}>
-                            {climbs.map(showClimbs)}
+                            {climbs.map(climb => showClimbs(climb, selID, setSelID))//Map iterates through every item
+                                            //So for every item, do this thing/pass it into with this name => showCLimbs()
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -44,16 +52,25 @@ export default function ViewClimbsPage(){
                     <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
                         'hover:text-zinc-300'}>Edit
                     </button>
-                    <button className={'h-8 rounded-full bg-red-600 text-zinc-100 hover:bg-red-700'}>Delete</button>
+                    <button onClick={() => deleteClimb(selID, setSelID)}
+                        className={'h-8 rounded-full bg-red-600 text-zinc-100 hover:bg-red-700'}>Delete</button>
                 </div>
             </main>
         </div>
     )
 }
 
-function showClimbs(climb: Climb){
+function showClimbs(climb: Climb, selID: number | null, setSelID: (id: number) => void){
+                                                    //setSelID(parameter: type) returns => void
+                                                    //TypeScript needs to know parameters/returns of passed functions
     return (
-        <tr key={climb.id} className={'border text-zinc-900 text-sm odd:bg-zinc-300 even:bg-zinc-100'}>
+        <tr key={climb.id} onClick={() => setSelID(climb.id)//React needs keys for rendering lists/differentiating
+            //Arrow function says (parameter or lack thereof) do this => setSelID(climb.ID)
+            //onClick is React event handler
+            //Cannot pass setSelID directly into onClick or it will run each time a row is created
+        }
+            className={selID === climb.id ? 'border-2 border-blue-950 text-zinc-900 text-sm bg-blue-400' :
+            'border text-zinc-900 text-sm odd:bg-zinc-300 even:bg-zinc-100'}>
             <td>{climb.id}</td>
             <td>{climb.grade}</td>
             <td>{climb.color}</td>
@@ -63,4 +80,18 @@ function showClimbs(climb: Climb){
             <td>{climb.intensity}</td>
         </tr>
     );
+}
+
+function deleteClimb(selID: number | null, setSelID: (id: number | null) => void){
+    if (selID === null){
+        return;
+    }
+    else {
+        for (let i = 0; i < climbs.length; i++){
+            if (selID === climbs[i].id){
+                climbs.splice(i,  1);
+                setSelID(null);
+            }
+        }
+    }
 }
