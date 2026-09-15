@@ -7,7 +7,7 @@ import {useRouter} from 'next/navigation';
 export default function AddClimb(){
     const router = useRouter();
 
-    function saveClimb(event: React.FormEvent<HTMLFormElement>){
+    function saveClimb(event: React.SubmitEvent<HTMLFormElement>){
         event.preventDefault()
 
         const form = event.currentTarget;
