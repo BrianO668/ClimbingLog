@@ -9,7 +9,7 @@ export default function EditForm({id}: {id: string}){
     const router = useRouter();
     const climbID = Number(id);
     let climbToEdit: Climb | null = null; //Declare climb as type climb or null. Initialize as null
-    let index: number | null = null;//Same with index
+    let index: number = -1;//Initialize as -1 because Vercel didn't like null possibility
 
     //Loop through array and assign matching id as climbToEdit
     for (let i = 0; i < climbs.length; i++){
@@ -37,6 +37,9 @@ export default function EditForm({id}: {id: string}){
         router.push('/viewclimbs');//Redirects
     }
 
+    if (climbToEdit === null) {
+        return (<h1>We've encountered an issue</h1>);
+    }
     return (
         <div className={'bg-white'}>
             <header className={'flex h-14 items-center gap-4 border-b border-b-zinc-900 border-zinc-white px-4 sm:px-5'}>
