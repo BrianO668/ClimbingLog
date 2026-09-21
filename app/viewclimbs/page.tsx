@@ -49,9 +49,11 @@ export default function ViewClimbsPage(){
                     <Link href={'/addclimb'} className={'flex flex-col'}>
                         <button className={'h-8 rounded-full bg-blue-800 text-zinc-100 hover:bg-blue-900'}>Add</button>
                     </Link>
-                    <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
-                        'hover:text-zinc-300'}>Edit
-                    </button>
+                    <Link href={selID === null ? '/viewclimbs' : `/editclimbs/${selID}`} className={'flex flex-col'}>
+                        <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
+                            'hover:text-zinc-300'}>Edit
+                        </button>
+                    </Link>
                     <button onClick={() => deleteClimb(selID, setSelID)}
                         className={'h-8 rounded-full bg-red-600 text-zinc-100 hover:bg-red-700'}>Delete</button>
                 </div>
