@@ -105,7 +105,7 @@ function deleteClimb(selID: number | null, setSelID: (id: number | null) => void
     else {
         for (let i = 0; i < climbs.length; i++){
             if (selID === climbs[i].id){
-                climbs.splice(i,  1); //splice delete an number of items (param 2) starting from index (param 1)
+                climbs.splice(i,  1); //splice deletes a number of items (param 2) starting from index (param 1)
                 setSelID(null);
             }
         }
