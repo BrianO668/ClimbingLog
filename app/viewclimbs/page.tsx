@@ -9,14 +9,28 @@ export default function ViewClimbsPage(){
    //use state^ creates a function to change the first parameter//(null) sets starting value to null-> useState<type>(initialValue)
     //[variableName, functionThatChangesVariableName]
     //useState<this type is allowed when ^function is called>
+    const [filterSent, setFilterSent] = useState<boolean | null>(null);
+
+    let filteredClimbs: Climb[] = [];
+    for (let i = 0; i < climbs.length; i++){
+        if (filterSent === null || climbs[i].sent === filterSent) {
+            filteredClimbs.push(climbs[i]);//If filterSent is null or matches climb id, add it
+            //this gives us a new array of every climb meeting the filter
+        }
+    }
 
     return(
         <div className={'bg-white'}>
             <header className={'flex h-14 items-center gap-4 border-b border-b-zinc-900 border-zinc-white px-4 sm:px-5'}>
                 <button className={'w-18 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full border-1' +
                     ' border-zinc-500 text-black hover:text-zinc-100'}>Climbs</button>
-                <button className={'w-20 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full text-black btn-outline-4' +
-                    ' border border-zinc-500 hover:text-zinc-100'}>Filter By</button>
+                <button className={'w-32 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full text-black btn-outline-4' +
+                    ' border border-zinc-500 hover:text-zinc-100'}
+                onClick={() => {
+                    if (filterSent === null) {setFilterSent(true)}
+                    else if (filterSent === true) {setFilterSent(false)}
+                    else {setFilterSent(null)}
+                }}>{filterSent === null ? "Unfiltered" : filterSent === true ? "Sent Climbs" : "Unsent Climbs"}</button>
                 <Link href={'/'} className={'ml-auto'}>
                     <button className={'w-18 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
                         ' hover:text-zinc-100 border border-zinc-500 ml-auto'}>
@@ -39,7 +53,7 @@ export default function ViewClimbsPage(){
                             </tr>
                         </thead>
                         <tbody className={'text-center'}>
-                            {climbs.map(climb => showClimbs(climb, selID, setSelID))//Map iterates through every item
+                            {filteredClimbs.map(climb => showClimbs(climb, selID, setSelID))//Map iterates through every item
                                             //So for every item, do this thing/pass it into with this name => showCLimbs()
                             }
                         </tbody>
@@ -49,9 +63,11 @@ export default function ViewClimbsPage(){
                     <Link href={'/addclimb'} className={'flex flex-col'}>
                         <button className={'h-8 rounded-full bg-blue-800 text-zinc-100 hover:bg-blue-900'}>Add</button>
                     </Link>
-                    <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
-                        'hover:text-zinc-300'}>Edit
-                    </button>
+                    <Link href={selID === null ? '/viewclimbs' : `/editclimbs/${selID}`} className={'flex flex-col'}>
+                        <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
+                            'hover:text-zinc-300'}>Edit
+                        </button>
+                    </Link>
                     <button onClick={() => deleteClimb(selID, setSelID)}
                         className={'h-8 rounded-full bg-red-600 text-zinc-100 hover:bg-red-700'}>Delete</button>
                 </div>
@@ -89,7 +105,7 @@ function deleteClimb(selID: number | null, setSelID: (id: number | null) => void
     else {
         for (let i = 0; i < climbs.length; i++){
             if (selID === climbs[i].id){
-                climbs.splice(i,  1);
+                climbs.splice(i,  1); //splice delete an number of items (param 2) starting from index (param 1)
                 setSelID(null);
             }
         }
