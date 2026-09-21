@@ -26,6 +26,7 @@ export default function EditForm({id}: {id: string}){
         const form = event.currentTarget;
         const data = new FormData(form);
 
+        // @ts-ignore
         climbs[index].grade = Number(data.get("grade"));
         climbs[index].color = String(data.get("color"));
         climbs[index].attempts = Number(data.get("attempts"));
