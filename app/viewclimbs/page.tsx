@@ -27,9 +27,9 @@ export default function ViewClimbsPage(){
                 <button className={'w-32 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full text-black btn-outline-4' +
                     ' border border-zinc-500 hover:text-zinc-100'}
                 onClick={() => {
-                    if (filterSent === null) {setFilterSent(true)}
-                    else if (filterSent === true) {setFilterSent(false)}
-                    else {setFilterSent(null)}
+                    if (filterSent === null) {setFilterSent(true); setSelID(null);}
+                    else if (filterSent === true) {setFilterSent(false); setSelID(null);}
+                    else {setFilterSent(null); setSelID(null);}
                 }}>{filterSent === null ? "Unfiltered" : filterSent === true ? "Sent Climbs" : "Unsent Climbs"}</button>
                 <Link href={'/'} className={'ml-auto'}>
                     <button className={'w-18 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
