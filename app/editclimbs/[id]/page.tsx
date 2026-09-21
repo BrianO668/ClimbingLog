@@ -8,7 +8,6 @@ export default async function EditClimbs({params}: {params: Promise<{id: string}
 
     return (
         <div>
-            <h1>Edit Climb ID: {id}</h1>
             <EditForm id={id} />
         </div>
     );
