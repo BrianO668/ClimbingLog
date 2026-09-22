@@ -55,6 +55,7 @@ export default function ViewClimbsPage(){
                         <tbody className={'text-center'}>
                             {filteredClimbs.map(climb => showClimbs(climb, selID, setSelID))//Map iterates through every item
                                             //So for every item, do this thing/pass it into with this name => showCLimbs()
+                                //map also effectively returns an array from the results of the function
                             }
                         </tbody>
                     </table>
@@ -81,7 +82,7 @@ function showClimbs(climb: Climb, selID: number | null, setSelID: (id: number) =
                                                     //TypeScript needs to know parameters/returns of passed functions
     return (
         <tr key={climb.id} onClick={() => setSelID(climb.id)//React needs keys for rendering lists/differentiating
-            //Arrow function says (parameter or lack thereof) do this => setSelID(climb.ID)
+            //Arrow function says (parameter or lack thereof) do this => setSelID(climb.ID). It's a function wrapper
             //onClick is React event handler
             //Cannot pass setSelID directly into onClick, or it will run each time a row is created
         }
