@@ -18,7 +18,7 @@ export default function AddClimb(){
         const attempts = Number(data.get("attempts"));
         const style = String(data.get("style"));
         const intensity = Number(data.get("intensity"));
-        const sent = data.get("sent") === "on";
+        const sent = data.get("sent") === "on"; //Checkbox value can be on or null
 
         climbs.push(new Climb(grade, color, attempts, style, intensity, sent));
         router.push('/viewclimbs');
