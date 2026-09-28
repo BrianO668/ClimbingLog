@@ -10,29 +10,35 @@ export default function ViewClimbsPage(){
     //[variableName, functionThatChangesVariableName]
     //useState<this type is allowed when ^function is called>
     const [filterSent, setFilterSent] = useState<boolean | null>(null);
+    const [search, setSearch] = useState<String>('');
 
     let filteredClimbs: Climb[] = [];
     for (let i = 0; i < climbs.length; i++){
-        if (filterSent === null || climbs[i].sent === filterSent) {
-            filteredClimbs.push(climbs[i]);//If filterSent is null or matches climb id, add it
-            //this gives us a new array of every climb meeting the filter
+        if ((filterSent === null || climbs[i].sent === filterSent) &&
+            (climbs[i].grade.toString().toLowerCase().includes(search.toLowerCase()) ||
+            climbs[i].color.toLowerCase().includes(search.toLowerCase())) ||
+            climbs[i].style.toLowerCase().includes(search.toLowerCase())) {
+                filteredClimbs.push(climbs[i]);
         }
     }
 
     return(
         <div className={'bg-white'}>
             <header className={'flex h-14 items-center gap-4 border-b border-b-zinc-900 border-zinc-white px-4 sm:px-5'}>
-                <button className={'w-18 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full border-1' +
+                <button className={'w-fit px-1 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full border-1' +
                     ' border-zinc-500 text-black hover:text-zinc-100'}>Climbs</button>
-                <button className={'w-32 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full text-black btn-outline-4' +
-                    ' border border-zinc-500 hover:text-zinc-100'}
+                <button className={'w-fit px-1 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full text-black' +
+                    ' border-1 border-zinc-500 hover:text-zinc-100 whitespace-nowrap'}
                 onClick={() => {
                     if (filterSent === null) {setFilterSent(true); setSelID(null);}
                     else if (filterSent === true) {setFilterSent(false); setSelID(null);}
                     else {setFilterSent(null); setSelID(null);}
                 }}>{filterSent === null ? "Unfiltered" : filterSent === true ? "Sent Climbs" : "Unsent Climbs"}</button>
+                <input id={'search'} name={'search'} placeholder={'search...'} className={'placeholder:text-zinc-600 border-1 ' +
+                    'border-zinc-500 rounded-full px-1 h-8 max-w-1/2 min-w-1/8 text-zinc-900 text-center pr-8'}
+                onChange={(eventChange) => setSearch(eventChange.target.value)}></input>
                 <Link href={'/'} className={'ml-auto'}>
-                    <button className={'w-18 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
+                    <button className={'w-fit px-1 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
                         ' hover:text-zinc-100 border border-zinc-500 ml-auto'}>
                             Logout
                     </button>
