@@ -10,16 +10,23 @@ export default function ViewClimbsPage(){
     //[variableName, functionThatChangesVariableName]
     //useState<this type is allowed when ^function is called>
     const [filterSent, setFilterSent] = useState<boolean | null>(null);
-    const [search, setSearch] = useState<String>('');
+    const [search, setSearch] = useState<string>('');
 
-    let filteredClimbs: Climb[] = [];
+    let sentFilteredClimbs: Climb[] = [];
     for (let i = 0; i < climbs.length; i++){
-        if ((filterSent === null || climbs[i].sent === filterSent) &&
-            (climbs[i].grade.toString().toLowerCase().includes(search.toLowerCase()) ||
-            climbs[i].color.toLowerCase().includes(search.toLowerCase())) ||
-            climbs[i].style.toLowerCase().includes(search.toLowerCase())) {
-                filteredClimbs.push(climbs[i]);
+        if ((filterSent === null || climbs[i].sent === filterSent)) {
+                sentFilteredClimbs.push(climbs[i]);
         }
+    }
+
+    let doubleFilteredClimbs: Climb[] = [];
+    for (let i = 0; i < sentFilteredClimbs.length; i++) {
+        if (sentFilteredClimbs[i].grade.toString().toLowerCase().includes(search.toLowerCase()) ||
+            sentFilteredClimbs[i].color.toLowerCase().includes(search.toLowerCase()) ||
+            sentFilteredClimbs[i].style.toLowerCase().includes(search.toLowerCase())) {
+            doubleFilteredClimbs.push(sentFilteredClimbs[i]);
+        }
+
     }
 
     return(
@@ -59,7 +66,7 @@ export default function ViewClimbsPage(){
                             </tr>
                         </thead>
                         <tbody className={'text-center'}>
-                            {filteredClimbs.map(climb => showClimbs(climb, selID, setSelID))//Map iterates through every item
+                            {doubleFilteredClimbs.map(climb => showClimbs(climb, selID, setSelID))//Map iterates through every item
                                             //So for every item, do this thing/pass it into with this name => showCLimbs()
                                 //map also effectively returns an array from the results of the function
                             }
