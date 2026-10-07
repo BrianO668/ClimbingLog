@@ -46,7 +46,7 @@ export default function AddClimb(){
                             <h1 className={'text-black w-1/8'}>Grade</h1>
                             <div className={'px-5'}>
                                 <input id={'grade'} name={'grade'} type={'number'}
-                                placeholder={'int'} className={'block w-24 text-zinc-800' +
+                                placeholder={'number'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ export default function AddClimb(){
                             <h1 className={'text-black w-1/8'}>Attempts</h1>
                             <div className={'px-5'}>
                                 <input id={'attempts'} name={'attempts'} type={'number'}
-                                       placeholder={'int'} className={'block w-24 text-zinc-800' +
+                                       placeholder={'number'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>
@@ -78,7 +78,7 @@ export default function AddClimb(){
                             <h1 className={'text-black w-1/8'}>Intensity</h1>
                             <div className={'px-5'}>
                                 <input id={'intensity'} name={'intensity'} type={'number'} min={0} max={10}
-                                       placeholder={'int 0-10'} className={'block w-24 text-zinc-800' +
+                                       placeholder={'number'} className={'block w-24 text-zinc-800' +
                                     ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
                             </div>
                         </div>

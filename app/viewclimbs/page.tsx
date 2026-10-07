@@ -79,10 +79,20 @@ export default function ViewClimbsPage(){
                     </Link>
                     <Link href={selID === null ? '/viewclimbs' : `/editclimbs/${selID}`} className={'flex flex-col'}>
                         <button className={'h-8 rounded-full bg-zinc-900 text-zinc-100 hover:bg-black ' +
-                            'hover:text-zinc-300'}>Edit
+                            'hover:text-zinc-300'}
+                        onClick={(event) => {if (selID ===null) {
+                                                event.preventDefault();
+                                                alert("Please select a climb first")
+                                            }
+                                        }
+                                    }>Edit
                         </button>
                     </Link>
-                    <button onClick={() => deleteClimb(selID, setSelID)}
+                    <button onClick={() => {if (selID === null) {
+                                alert("Please select a climb first");
+                                return;
+                            }
+                                deleteClimb(selID, setSelID)}}
                         className={'h-8 rounded-full bg-red-600 text-zinc-100 hover:bg-red-700'}>Delete</button>
                 </div>
             </main>
