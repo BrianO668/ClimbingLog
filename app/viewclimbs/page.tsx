@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import {Climb, climbs} from "../data/climbs";
-import {useState} from 'react';
+import type { Climb } from '../data/climbs';
+import {useState, useEffect} from 'react';
+import { createClient } from '@/utils/supabase/client';
 
 export default function ViewClimbsPage(){
     const [selID, setSelID] = useState<number | null>(null); //Says useState type is number or null
@@ -11,6 +12,30 @@ export default function ViewClimbsPage(){
     //useState<this type is allowed when ^function is called>
     const [filterSent, setFilterSent] = useState<boolean | null>(null);
     const [search, setSearch] = useState<string>('');
+    const [climbs, setClimbs] = useState<Climb[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [loadingError, setLoadingError] = useState<string | null>(null);
+
+    //Async function to fetch climbs from the actual database
+    useEffect(() => {
+        async function fetchClimbs() {
+            const supabase = createClient();
+
+            const {data: climbs, error} = await supabase.from('Climbs').select('*').order('id');
+
+            if (error) {
+                console.log(error);
+            }
+            else {
+                console.log('Returned climbs:', climbs);
+                console.log('Number of climbs:', climbs?.length);
+                setClimbs((climbs ?? []) as Climb[]);
+                console.log("Climbs fetched");
+            }
+        }
+
+        fetchClimbs();
+    }, [])
 
     let sentFilteredClimbs: Climb[] = [];
     for (let i = 0; i < climbs.length; i++){
@@ -123,6 +148,7 @@ function showClimbs(climb: Climb, selID: number | null, setSelID: (id: number) =
 }
 
 function deleteClimb(selID: number | null, setSelID: (id: number | null) => void){
+    /*
     if (selID === null){
         return;
     }
@@ -134,4 +160,5 @@ function deleteClimb(selID: number | null, setSelID: (id: number | null) => void
             }
         }
     }
+     */
 }
