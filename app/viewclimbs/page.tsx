@@ -13,23 +13,21 @@ export default function ViewClimbsPage(){
     const [filterSent, setFilterSent] = useState<boolean | null>(null);
     const [search, setSearch] = useState<string>('');
     const [climbs, setClimbs] = useState<Climb[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [loadingError, setLoadingError] = useState<string | null>(null);
 
     //Async function to fetch climbs from the actual database
     useEffect(() => {
         async function fetchClimbs() {
             const supabase = createClient();
 
-            const {data: climbs, error} = await supabase.from('Climbs').select('*').order('id');
+            const {data: climbs} = await supabase.from('Climbs').select('*').order('id');
 
-            if (error) {
-                console.log(error);
+            if (!climbs) {
+                console.log("No climbs fetched");
             }
             else {
                 console.log('Returned climbs:', climbs);
                 console.log('Number of climbs:', climbs?.length);
-                setClimbs((climbs ?? []) as Climb[]);
+                setClimbs(climbs ?? []);
                 console.log("Climbs fetched");
             }
         }
@@ -147,18 +145,18 @@ function showClimbs(climb: Climb, selID: number | null, setSelID: (id: number) =
     );
 }
 
-function deleteClimb(selID: number | null, setSelID: (id: number | null) => void){
-    /*
-    if (selID === null){
+async function deleteClimb(selID: number | null, setSelID: (id: number | null) => void){
+    if (selID === null) {console.log("null"); return;}
+
+    const supabase = createClient(); //Connect
+    console.log("connected");
+    const {error} = await supabase.from('Climbs').delete().eq('id', selID);
+    console.log("deletion occured");
+    //Delete query
+    if (error) {
+        console.log(error);
         return;
     }
-    else {
-        for (let i = 0; i < climbs.length; i++){
-            if (selID === climbs[i].id){
-                climbs.splice(i,  1); //splice deletes a number of items (param 2) starting from index (param 1)
-                setSelID(null);
-            }
-        }
-    }
-     */
+    setSelID(null); //Reset the usestate
+    console.log("selID state reset");
 }
