@@ -3,36 +3,53 @@
 import { Climb, climbs } from "@/app/data/climbs";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
+import {createClient} from "@/utils/supabase/client";
+import {useEffect, useState} from "react";
 
 export default function EditForm({id}: {id: string}){
                         //Take in parameter "id" that is an object that contains an id of type string
     const router = useRouter();
     const climbID = Number(id);
-    let climbToEdit: Climb | null = null; //Declare climb as type climb or null. Initialize as null
-    let index: number = -1;//Initialize as -1 because Vercel didn't like null possibility
+    const [climbToEdit, setClimbToEdit] = useState<Climb | null>(null);
 
-    //Loop through array and assign matching id as climbToEdit
-    for (let i = 0; i < climbs.length; i++){
-        if (climbs[i].id === climbID) {
-            climbToEdit = climbs[i];
-            index = i;
-            break;
+    useEffect(() => {
+        async function fetchClimb() {
+            const supabase = createClient();
+
+            const {data, error} = await supabase.from('Climbs').select('*')
+                .eq('id', climbID)
+                .single();
+
+            if (error) {
+                console.log("No climb fetched");
+            }
+
+            setClimbToEdit(data as Climb);
         }
-    }
 
-    function saveClimb(event: React.SubmitEvent<HTMLFormElement>){
+        fetchClimb();
+    })
+
+    async function saveClimb(event: React.SubmitEvent<HTMLFormElement>){
         event.preventDefault() //Gathers all the data and pushes it into the array. Then redirects to viewclimbs
             //Prevent form submit from automatically redirecting, so we can apply code first
         const form = event.currentTarget;
         const data = new FormData(form);
 
-        // @ts-ignore
-        climbs[index].grade = Number(data.get("grade"));
-        climbs[index].color = String(data.get("color"));
-        climbs[index].attempts = Number(data.get("attempts"));
-        climbs[index].style = String(data.get("style"));
-        climbs[index].intensity = Number(data.get("intensity"));
-        climbs[index].sent = data.get("sent") === "on";
+        const grade = Number(data.get("grade"));
+        const color = String(data.get("color"));
+        const attempts = Number(data.get("attempts"));
+        const style = String(data.get("style"));
+        const intensity = Number(data.get("intensity"));
+        const sent = data.get("sent") === "on";
+
+        const supabase = createClient();
+
+        const {error} = await supabase.from('Climbs')
+            .update({grade: grade, color: color, attempts: attempts, style: style, intensity: intensity, sent: sent})
+            .eq('id', id);
+
+        if (error) {console.log(error)}
 
         router.push('/viewclimbs');//Redirects
     }
