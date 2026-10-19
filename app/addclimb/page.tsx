@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import {Climb, climbs} from "../data/climbs";
 import {useRouter} from 'next/navigation';
+import {createClient} from "@/utils/supabase/client";
 
 export default function AddClimb(){
     const router = useRouter();
 
-    function saveClimb(event: React.SubmitEvent<HTMLFormElement>){
+    async function saveClimb(event: React.SubmitEvent<HTMLFormElement>){
         event.preventDefault() //Gathers all the data and pushes it into the array. Then redirects to viewclimbs
 
         const form = event.currentTarget;
@@ -20,7 +21,12 @@ export default function AddClimb(){
         const intensity = Number(data.get("intensity"));
         const sent = data.get("sent") === "on"; //Checkbox value can be on or null
 
-        climbs.push(new Climb(grade, color, attempts, style, intensity, sent));
+        const supabase = createClient();
+
+        const {error} = await supabase.from('Climbs')
+            .insert({grade: grade, color: color, attempts: attempts, style: style, intensity: intensity, sent: sent})
+        if (error) {console.log(error)}
+
         router.push('/viewclimbs');
     }
 
