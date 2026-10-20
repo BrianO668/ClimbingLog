@@ -30,6 +30,20 @@ export default function AddClimb(){
         router.push('/viewclimbs');
     }
 
+    async function Logout(event: React.SubmitEvent<HTMLFormElement>){
+        event.preventDefault()
+
+        const supabase = createClient();
+        const {error} = await supabase.auth.signOut({ scope: 'local' });
+        if(error) {
+            console.log('Log out error');
+            return;
+        }
+        console.log('LOGGING OUT!');
+
+        router.push('/');
+    }
+
     return(
         <div className={'bg-white'}>
             <header className={'flex h-14 items-center gap-4 border-b border-b-zinc-900 border-zinc-white px-4 sm:px-5'}>
@@ -37,12 +51,12 @@ export default function AddClimb(){
                 <button className={'w-18 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full border-1' +
                     ' border-zinc-500 text-black hover:text-zinc-100'}>Climbs</button>
                 </Link>
-                <Link href={'/'} className={'ml-auto'}>
+                <form onSubmit={Logout} className={'ml-auto'}>
                     <button className={'w-18 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
                         ' hover:text-zinc-100 border border-zinc-500 ml-auto'}>
                         Logout
                     </button>
-                </Link>
+                </form>
             </header>
             <main className={'bg-white flex flex-col min-h-screen'}>
                 <form onSubmit={saveClimb}>

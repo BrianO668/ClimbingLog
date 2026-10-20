@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Climb } from '../data/climbs';
 import {useState, useEffect} from 'react';
 import { createClient } from '@/utils/supabase/client';
+import {useRouter} from "next/navigation";
 
 export default function ViewClimbsPage(){
     const [selID, setSelID] = useState<number | null>(null); //Says useState type is number or null
@@ -13,6 +14,7 @@ export default function ViewClimbsPage(){
     const [filterSent, setFilterSent] = useState<boolean | null>(null);
     const [search, setSearch] = useState<string>('');
     const [climbs, setClimbs] = useState<Climb[]>([]);
+    const router = useRouter();
 
     //Async function to fetch climbs from the actual database
     useEffect(() => {
@@ -34,6 +36,20 @@ export default function ViewClimbsPage(){
 
         fetchClimbs();
     }, [])
+
+    async function Logout(event: React.SubmitEvent<HTMLFormElement>){
+        event.preventDefault()
+
+        const supabase = createClient();
+        const {error} = await supabase.auth.signOut({ scope: 'local' });
+        if(error) {
+            console.log('Log out error');
+            return;
+        }
+        console.log('LOGGING OUT!');
+
+        router.push('/');
+    }
 
     let sentFilteredClimbs: Climb[] = [];
     for (let i = 0; i < climbs.length; i++){
@@ -67,12 +83,12 @@ export default function ViewClimbsPage(){
                 <input id={'search'} name={'search'} placeholder={'search...'} className={'placeholder:text-zinc-600 border-1 ' +
                     'border-zinc-500 rounded-full px-1 h-8 max-w-1/2 min-w-1/8 text-zinc-900 text-center pr-8'}
                 onChange={(eventChange) => setSearch(eventChange.target.value)}></input>
-                <Link href={'/'} className={'ml-auto'}>
+                <form onSubmit={Logout} className={'ml-auto'}>
                     <button className={'w-fit px-1 h-8 rounded-full bg-zinc-750 hover:bg-zinc-700 text-black ' +
                         ' hover:text-zinc-100 border border-zinc-500 ml-auto'}>
                             Logout
                     </button>
-                </Link>
+                </form>
             </header>
             <main className={'bg-white flex flex-col min-h-screen'}>
                 <div className={'flex flex-col'}>

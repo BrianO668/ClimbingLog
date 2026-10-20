@@ -1,8 +1,10 @@
 'use client'
 import Link from 'next/link';
 import {createClient} from "@/utils/supabase/client";
+import {useRouter} from "next/navigation";
 
 export default function Register() {
+    const router = useRouter();
 
     async function RegisterAccount(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault() //Prevent refresh on form submission
@@ -20,7 +22,14 @@ export default function Register() {
             password: String(formData.get('password')),
         });
 
+        if (error) {
+            console.log("Email signup error");
+            alert('An unknown error occured');
+            return;
+        }
+
         alert('Verification link has been sent to your email');
+        router.push('/');
     }
 
     return (
