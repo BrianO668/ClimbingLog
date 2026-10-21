@@ -1,6 +1,31 @@
+'use client'
+
 import Link from 'next/link';
+import {useRouter} from 'next/navigation';
+import {createClient} from "@/utils/supabase/client";
 
 export default function Home() {
+    const router = useRouter();
+
+    async function Login(event: React.SubmitEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+
+        const supabase = createClient();
+        const {data, error} = await supabase.auth.signInWithPassword({
+            email: String(formData.get('email')),
+            password: String(formData.get('password')),
+        })
+
+        if(error){
+            alert(error.message);
+            return;
+        }
+
+        router.push('/viewclimbs');
+    }
+
   return (
       //flex makes items flex elements
       //flex-col aligns flex items into columns
@@ -15,24 +40,25 @@ export default function Home() {
               </h1>
             </Link>
         </div>
-        <div className="w-[40vw]">
-            <h2 className="text-center text-xl font-semibold text-black py-10">
-                Login to your account
-            </h2>
-            <div className={'py-1'}>
-                <input id={'email'} name={'email'} type={'email'} placeholder={'email@domain.com'} className={'block w-full' +
-                    ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'}/>
+          <form onSubmit={Login}>
+            <div className="w-[40vw]">
+                <h2 className="text-center text-xl font-semibold text-black py-10">
+                    Login to your account
+                </h2>
+                <div className={'py-1'}>
+                    <input id={'email'} name={'email'} type={'email'} placeholder={'email@domain.com'} className={'block w-full' +
+                        ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2 text-zinc-900'} required/>
+                </div>
+                <div className={'py-1'}>
+                    <input id={'password'} name={'password'} type={'password'} placeholder={'Password'} className={'block w-full' +
+                        ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2 text-zinc-900'} required/>
+                </div>
+                <div className={'py-4'}>
+                    <button type={'submit'} className={'w-full bg-zinc-800 hover:bg-black rounded-full text-white'}>
+                        Login</button>
+                </div>
             </div>
-            <div className={'py-1'}>
-                <input id={'password'} name={'password'} type={'password'} placeholder={'Password'} className={'block w-full' +
-                    ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2'} required/>
-            </div>
-            <div className={'py-4'}>
-                <Link href={'/viewclimbs'}>
-                    <button className={'w-full bg-zinc-800 hover:bg-black rounded-full text-white'}>Login</button>
-                </Link>
-            </div>
-        </div>
+          </form>
         <div className={'w-[40vw] mt-auto pb-8'}>
             <h2 className={'text-center text-xl font-semibold text-black py-4'}>
                 No account? Click below!
