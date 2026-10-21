@@ -24,7 +24,7 @@ export default function Register() {
 
         if (error) {
             console.log("Email signup error");
-            alert('An unknown error occured');
+            alert(error.message);
             return;
         }
 
@@ -56,7 +56,7 @@ export default function Register() {
                         </h3>
                         <div className={'py-1'}>
                             <input id={'email'} name={'email'} type={'email'} placeholder={'email@domain.com'} className={'block w-full' +
-                                ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2 text-zinc-900'}/>
+                                ' rounded-md bg-white border border-gray-300 placeholder:text-zinc-400 px-2 text-zinc-900'} required/>
                         </div>
                         <div className={'py-1'}>
                             <input id={'password'} name={'password'} type={'password'} placeholder={'Password'} className={'block w-full' +
