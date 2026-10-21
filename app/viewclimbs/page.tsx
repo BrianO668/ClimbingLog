@@ -175,4 +175,5 @@ async function deleteClimb(selID: number | null, setSelID: (id: number | null) =
     }
     setSelID(null); //Reset the usestate
     console.log("selID state reset");
+    window.location.reload(); //Refresh page
 }
