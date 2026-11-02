@@ -23,7 +23,6 @@ export default function Register() {
         });
 
         if (error) {
-            alert(error);
             alert(error.message);
             return;
         }
