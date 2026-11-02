@@ -21,14 +21,14 @@ export default function EditForm({id}: {id: string}){
                 .single();
 
             if (error) {
-                console.log("No climb fetched");
+                alert("No climb fetched, returning");
             }
 
             setClimbToEdit(data as Climb);
         }
 
         fetchClimb();
-    })
+    }, [id]) //Run after initial render and when id changes
 
     async function Logout(event: React.SubmitEvent<HTMLFormElement>){
         event.preventDefault()
@@ -36,7 +36,7 @@ export default function EditForm({id}: {id: string}){
         const supabase = createClient();
         const {error} = await supabase.auth.signOut({ scope: 'local' });
         if(error) {
-            console.log('Log out error');
+            alert(error);
             return;
         }
         console.log('LOGGING OUT!');
@@ -63,7 +63,7 @@ export default function EditForm({id}: {id: string}){
             .update({grade: grade, color: color, attempts: attempts, style: style, intensity: intensity, sent: sent})
             .eq('id', id);
 
-        if (error) {console.log(error)}
+        if (error) {alert("Error saving climb, returning home.")}
 
         router.push('/viewclimbs');//Redirects
     }

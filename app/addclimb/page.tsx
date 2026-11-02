@@ -25,7 +25,7 @@ export default function AddClimb(){
 
         const {error} = await supabase.from('Climbs')
             .insert({grade: grade, color: color, attempts: attempts, style: style, intensity: intensity, sent: sent})
-        if (error) {console.log(error)}
+        if (error) {alert("Error saving climb. Please try again."); return;}
 
         router.push('/viewclimbs');
     }
@@ -36,7 +36,7 @@ export default function AddClimb(){
         const supabase = createClient();
         const {error} = await supabase.auth.signOut({ scope: 'local' });
         if(error) {
-            console.log('Log out error');
+            alert(error);
             return;
         }
         console.log('LOGGING OUT!');

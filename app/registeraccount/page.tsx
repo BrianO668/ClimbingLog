@@ -23,7 +23,7 @@ export default function Register() {
         });
 
         if (error) {
-            console.log("Email signup error");
+            alert(error);
             alert(error.message);
             return;
         }

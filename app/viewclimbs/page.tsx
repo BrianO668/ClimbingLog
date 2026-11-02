@@ -35,7 +35,7 @@ export default function ViewClimbsPage(){
         }
 
         fetchClimbs();
-    }, [])
+    }, [])//Empty dependency array. Run effect on mount and whenever the dependency changes (nothing to change)
 
     async function Logout(event: React.SubmitEvent<HTMLFormElement>){
         event.preventDefault()
@@ -43,7 +43,7 @@ export default function ViewClimbsPage(){
         const supabase = createClient();
         const {error} = await supabase.auth.signOut({ scope: 'local' });
         if(error) {
-            console.log('Log out error');
+            alert(error);
             return;
         }
         console.log('LOGGING OUT!');
