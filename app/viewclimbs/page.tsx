@@ -71,15 +71,15 @@ export default function ViewClimbsPage(){
     return(
         <div className={'bg-white'}>
             <header className={'flex h-14 items-center gap-4 border-b border-b-zinc-900 border-zinc-white px-4 sm:px-5'}>
-                <button className={'w-fit px-1 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full border-1' +
-                    ' border-zinc-500 text-black hover:text-zinc-100'}>Climbs</button>
+                <button className={'w-fit px-1 h-8 bg-zinc-800 hover:bg-black rounded-full border-1' +
+                    ' border-zinc-500 text-white hover:text-zinc-100'}>Climbs</button>
                 <button className={'w-fit px-1 h-8 bg-zinc-750 hover:bg-zinc-700 rounded-full text-black' +
                     ' border-1 border-zinc-500 hover:text-zinc-100 whitespace-nowrap'}
                 onClick={() => {
                     if (filterSent === null) {setFilterSent(true); setSelID(null);}
                     else if (filterSent === true) {setFilterSent(false); setSelID(null);}
                     else {setFilterSent(null); setSelID(null);}
-                }}>{filterSent === null ? "Unfiltered" : filterSent === true ? "Sent Climbs" : "Unsent Climbs"}</button>
+                }}>{filterSent === null ? "Filter: All" : filterSent === true ? "Filter: Sent" : "Filter: Unsent"}</button>
                 <input id={'search'} name={'search'} placeholder={'search...'} className={'placeholder:text-zinc-600 border-1 ' +
                     'border-zinc-500 rounded-full px-1 h-8 max-w-1/2 min-w-1/8 text-zinc-900 text-center pr-8'}
                 onChange={(eventChange) => setSearch(eventChange.target.value)}></input>
