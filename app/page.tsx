@@ -57,6 +57,12 @@ export default function Home() {
                     <button type={'submit'} className={'w-full bg-zinc-800 hover:bg-black rounded-full text-white'}>
                         Login</button>
                 </div>
+                <div>
+                    <Link href={'/about'}>
+                        <button className={'w-full bg-zinc-800 hover:bg-black text-white rounded-full'}>About
+                        </button>
+                    </Link>
+                </div>
             </div>
           </form>
         <div className={'w-[40vw] mt-auto pb-8'}>
